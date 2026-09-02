@@ -1,0 +1,1593 @@
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050816;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       3D BACKGROUND
+    ========================== */
+
+    .scene {
+        background-image: url("assets/bg.png");
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      
+    }
+
+    .cube {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border: 1px solid rgba(0, 212, 255, .25);
+      transform-style: preserve-3d;
+      animation: rotateCube 18s linear infinite;
+    }
+
+    .cube::before,
+    .cube::after {
+      content: "";
+      position: absolute;
+      inset: 20px;
+      border: 1px solid rgba(123, 47, 247, .25);
+    }
+
+    .cube.one {
+      top: 15%;
+      left: 8%;
+    }
+
+    .cube.two {
+      width: 250px;
+      height: 250px;
+      right: 5%;
+      bottom: 10%;
+      animation-duration: 25s;
+      animation-direction: reverse;
+    }
+
+    .cube.three {
+      width: 100px;
+      height: 100px;
+      top: 55%;
+      left: 45%;
+      animation-duration: 12s;
+    }
+
+    @keyframes rotateCube {
+      0% {
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      }
+
+      100% {
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+      }
+    }
+
+    .grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(0,212,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      transform: perspective(500px) rotateX(60deg) scale(1.5);
+      transform-origin: bottom;
+      opacity: .4;
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================== */
+
+    header {
+      position: relative;
+      z-index: 10;
+      padding: 20px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      backdrop-filter: blur(15px);
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      color: #00d4ff;
+    }
+
+    .logo span {
+      color: #fff;
+    }
+
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-size: 15px;
+      transition: .3s;
+    }
+
+    nav a:hover {
+      color: #00d4ff;
+    }
+
+    .menu-btn {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 7%;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      color: #f3f4f5;
+      background:rgba(13, 21, 38, .65);
+      margin-bottom: 25px;
+      font-size: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(45px, 7vw, 82px);
+      line-height: 1;
+      margin-bottom: 25px;
+      letter-spacing: -3px;
+    }
+
+    .hero h1 span {
+      color: #0000005d;
+      text-shadow: 0 0 30px rgba(0,212,255,.5);
+    }
+
+    .hero p {
+      color: #b9c1d0;
+      font-size: 19px;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 35px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: .3s;
+    }
+
+    .btn-primary {
+      background: #2c2b2b11;
+      color: #001018;
+      box-shadow: 0 10px 30px rgba(0,212,255,.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(0,212,255,.4);
+    }
+
+    .btn-outline {
+      border: 1px solid #444d62;
+      color: white;
+    }
+
+    .btn-outline:hover {
+      border-color: #00d4ff;
+      color: #00d4ff;
+    }
+
+    /* Floating phone/computer */
+
+ 
+
+    .hero-device::before {
+      content: "FIXPRO";
+      position: absolute;
+      inset: 35px 15px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle, rgba(0,212,255,.2), transparent 50%),
+        #07101c;
+      color: #00d4ff;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .camera {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 18px;
+      border-radius: 20px;
+      background: #02050a;
+      z-index: 2;
+    }
+
+    @keyframes floating {
+      0%, 100% {
+        transform: rotateY(-20deg) rotateX(8deg) translateY(0);
+      }
+
+      50% {
+        transform: rotateY(-20deg) rotateX(8deg) translateY(-25px);
+      }
+    }
+
+    /* =========================
+       SERVICES
+    ========================== */
+
+    section {
+      padding: 100px 7%;
+      position: relative;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 42px;
+      margin-bottom: 15px;
+    }
+
+    .section-title p {
+      color: #9ca6b8;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      padding: 35px 25px;
+      min-height: 260px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      background: rgba(13, 21, 38, .65);
+      backdrop-filter: blur(15px);
+      transition: .4s;
+      transform-style: preserve-3d;
+    }
+
+    .service-card:hover {
+      transform: translateY(-12px) rotateX(4deg) rotateY(-4deg);
+      border-color: rgba(0,212,255,.5);
+      box-shadow: 0 20px 50px rgba(0,0,0,.3);
+    }
+
+    .icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,212,255,.1);
+      color: #00d4ff;
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    .service-card h3 {
+      margin-bottom: 12px;
+      font-size: 21px;
+    }
+
+    .service-card p {
+      color: #9da7b8;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       ABOUT / CTA
+    ========================== */
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about h2 {
+      font-size: 45px;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      color: #aab3c3;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .stat {
+      padding: 30px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .stat strong {
+      display: block;
+      color: #ffffff;
+      font-size: 35px;
+      margin-bottom: 8px;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 80px 30px;
+      
+      border-radius: 25px;
+      background: rgba(3,7,17,.8);
+    }
+
+    .cta h2 {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #aab3c3;
+      margin-bottom: 30px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      padding: 60px 7% 25px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(3,7,17,.8);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand p {
+      color: #8f99aa;
+      line-height: 1.7;
+      max-width: 350px;
+      margin-top: 15px;
+    }
+
+    footer h4 {
+      margin-bottom: 20px;
+    }
+
+    footer a {
+      display: block;
+      color: #8f99aa;
+      text-decoration: none;
+      margin-bottom: 12px;
+      transition: .3s;
+    }
+
+    footer a:hover {
+      color: #00d4ff;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding-top: 25px;
+      color: #697386;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media (max-width: 1000px) {
+     
+
+      .services {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding: 18px 5%;
+      }
+
+      nav {
+        position: absolute;
+        top: 70px;
+        left: 5%;
+        right: 5%;
+        padding: 20px;
+        flex-direction: column;
+        background: #0a1220;
+        border-radius: 12px;
+        display: none;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero {
+        padding: 70px 5%;
+      }
+
+      .hero h1 {
+        font-size: 50px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .hero-device {
+        display: none;
+      }
+
+      section {
+        padding: 70px 5%;
+      }
+
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta h2 {
+        font-size: 34px;
+      }
+    }
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.hero-content {
+  width: 50%;
+  padding-left: 9%;
+  position: relative;
+  z-index: 5;
+}
+
+.badge {
+  display: inline-block;
+
+  padding: 8px 15px;
+
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 30px;
+
+  background: rgba(255,255,255,.05);
+
+  color: #9daaff;
+
+  font-size: 13px;
+  letter-spacing: 1px;
+
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-size: clamp(50px, 6vw, 86px);
+  line-height: .95;
+
+  letter-spacing: -4px;
+
+  max-width: 650px;
+
+  margin-bottom: 25px;
+}
+
+h1 span {
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #8b9cff,
+    #48d9ff
+  );
+
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.description {
+  max-width: 520px;
+
+  color: #9ca3b8;
+
+  font-size: 18px;
+  line-height: 1.7;
+
+  margin-bottom: 35px;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 15px 25px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  color: white;
+
+  font-weight: 600;
+
+  transition: .3s;
+}
+
+.primary {
+  background: linear-gradient(
+    135deg,
+    #6373ff,
+    #4052ff
+  );
+
+  box-shadow:
+    0 10px 30px rgba(70,80,255,.35);
+}
+
+.secondary {
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.04);
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+}
+
+/* =========================
+   PHONE AREA
+========================= */
+
+.phone-area {
+  position: absolute;
+
+  right: 7%;
+
+  width: 43%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1200px;
+}
+
+/* Floating ring behind phone */
+
+.ring {
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(120,140,255,.25);
+
+  box-shadow:
+    0 0 80px rgba(75,90,255,.15);
+
+  transform: rotateX(65deg);
+}
+
+/* =========================
+   PHONE
+========================= */
+
+.phone {
+  width: 285px;
+  height: 590px;
+
+  position: relative;
+
+  border-radius: 48px;
+
+  padding: 9px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #737987,
+      #171a22 35%,
+      #080a0f 70%,
+      #606674
+    );
+
+  border: 2px solid #747987;
+
+  transform:
+    rotateY(-22deg)
+    rotateX(7deg)
+    rotateZ(2deg);
+
+  transform-style: preserve-3d;
+
+  box-shadow:
+    35px 45px 60px rgba(0,0,0,.65),
+    -10px 10px 35px rgba(70,90,255,.15),
+    inset 2px 2px 5px rgba(255,255,255,.3);
+
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% {
+    transform:
+      rotateY(-22deg)
+      rotateX(7deg)
+      rotateZ(2deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      rotateY(-18deg)
+      rotateX(9deg)
+      rotateZ(1deg)
+      translateY(-18px);
+  }
+}
+
+/* Screen */
+
+
+
+/* Wallpaper shapes */
+
+.screen::before {
+  content: "";
+
+  position: absolute;
+
+  width: 250px;
+  height: 450px;
+
+  left: -100px;
+  top: 100px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    180deg,
+    rgba(0,220,255,.5),
+    rgba(90,70,255,.05)
+  );
+
+  transform: rotate(30deg);
+
+  filter: blur(10px);
+}
+
+.screen::after {
+  content: "";
+
+  position: absolute;
+
+  width: 200px;
+  height: 400px;
+
+  right: -80px;
+  bottom: -50px;
+
+  border-radius: 50%;
+
+  background: #ff4fd8;
+
+  opacity: .25;
+
+  filter: blur(50px);
+}
+
+/* Dynamic island */
+
+.island {
+  position: absolute;
+
+  top: 15px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 105px;
+  height: 30px;
+
+  border-radius: 20px;
+
+  background: #020307;
+
+  z-index: 10;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.1);
+}
+
+.camera {
+  position: absolute;
+
+  right: 10px;
+  top: 9px;
+
+  width: 11px;
+  height: 11px;
+
+  border-radius: 50%;
+
+  background: #172342;
+
+  box-shadow:
+    inset 1px 1px 3px #708cff;
+}
+
+/* Time */
+
+.time {
+  position: absolute;
+
+  top: 65px;
+  left: 25px;
+
+  font-size: 13px;
+
+  color: rgba(255,255,255,.8);
+
+  z-index: 5;
+}
+
+/* Phone headline */
+
+.phone-title {
+  position: absolute;
+
+  left: 25px;
+  right: 25px;
+  top: 125px;
+
+  z-index: 5;
+}
+
+.phone-title small {
+  color: #b4c0ff;
+
+  letter-spacing: 2px;
+
+  font-size: 11px;
+}
+
+.phone-title h2 {
+  font-size: 42px;
+
+  line-height: 1;
+
+  margin-top: 10px;
+
+  letter-spacing: -2px;
+}
+
+/* App icons */
+
+.apps {
+  position: absolute;
+
+  bottom: 80px;
+  left: 25px;
+  right: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 15px;
+
+  z-index: 5;
+}
+
+.app {
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 14px;
+
+  background:
+    rgba(255,255,255,.13);
+
+  backdrop-filter: blur(10px);
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  font-size: 19px;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.15);
+}
+
+/* Home indicator */
+
+.home {
+  position: absolute;
+
+  bottom: 17px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 100px;
+  height: 5px;
+
+  border-radius: 10px;
+
+  background: white;
+
+  opacity: .9;
+
+  z-index: 10;
+}
+
+/* Glass reflection */
+
+.reflection {
+  position: absolute;
+
+  top: -100px;
+  left: -100px;
+
+  width: 150px;
+  height: 700px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.16),
+      transparent
+    );
+
+  transform: rotate(20deg);
+
+  filter: blur(4px);
+
+  z-index: 15;
+
+  pointer-events: none;
+}
+
+/* Side buttons */
+
+.button {
+  position: absolute;
+
+  width: 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #17191e,
+      #858b96
+    );
+
+  z-index: -1;
+}
+
+.volume1 {
+  height: 50px;
+
+  left: -9px;
+  top: 130px;
+
+  border-radius: 5px 0 0 5px;
+}
+
+.volume2 {
+  height: 50px;
+
+  left: -9px;
+  top: 195px;
+
+  border-radius: 5px 0 0 5px;
+}
+
+.power {
+  height: 90px;
+
+  right: -9px;
+  top: 160px;
+
+  border-radius: 0 5px 5px 0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+  .hero {
+    min-height: 1000px;
+
+    flex-direction: column;
+
+    justify-content: center;
+  }
+
+  .hero-content {
+    width: 100%;
+
+    padding: 70px 30px 0;
+
+    text-align: center;
+  }
+
+  
+
+
+
+  .phone {
+    transform:
+      rotateY(-15deg)
+      rotateX(5deg);
+  }
+
+  h1 {
+    letter-spacing: -3px;
+  }
+}
+
+
+.hero {
+  min-height: 700px;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+
+}
+
+/* Background glow */
+
+.hero::before {
+  content: "";
+  position: absolute;
+
+  width: 600px;
+  height: 600px;
+
+  right: 5%;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border-radius: 50%;
+
+  background: rgba(76, 91, 255, .15);
+
+  filter: blur(80px);
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.hero-content {
+  width: 50%;
+  padding-left: 9%;
+  position: relative;
+  z-index: 5;
+}
+
+.badge {
+  display: inline-block;
+
+  padding: 8px 15px;
+
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 30px;
+
+  background: rgba(255,255,255,.05);
+
+  color: #9daaff;
+
+  font-size: 13px;
+  letter-spacing: 1px;
+
+  margin-bottom: 25px;
+}
+
+h1 {
+  font-size: clamp(50px, 6vw, 86px);
+  line-height: .95;
+
+  letter-spacing: -4px;
+
+  max-width: 650px;
+
+  margin-bottom: 25px;
+}
+
+h1 span {
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #8b9cff,
+    #48d9ff
+  );
+
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.description {
+  max-width: 520px;
+
+  color: #9ca3b8;
+
+  font-size: 18px;
+  line-height: 1.7;
+
+  margin-bottom: 35px;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 15px 25px;
+
+  border-radius: 12px;
+
+  text-decoration: none;
+
+  color: white;
+
+  font-weight: 600;
+
+  transition: .3s;
+}
+
+.primary {
+  background: linear-gradient(
+    135deg,
+    #6373ff,
+    #4052ff
+  );
+
+  box-shadow:
+    0 10px 30px rgba(70,80,255,.35);
+}
+
+.secondary {
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.04);
+}
+
+.btn:hover {
+  transform: translateY(-4px);
+}
+
+/* =========================
+   PHONE AREA
+========================= */
+
+.phone-area {
+  position: absolute;
+
+  right: 7%;
+
+  width: 43%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  perspective: 1200px;
+}
+
+/* Floating ring behind phone */
+
+.ring {
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(120,140,255,.25);
+
+  box-shadow:
+    0 0 80px rgba(75,90,255,.15);
+
+  transform: rotateX(65deg);
+}
+
+/* =========================
+   PHONE
+========================= */
+
+.phone {
+  width: 285px;
+  height: 590px;
+
+  position: relative;
+
+  border-radius: 48px;
+
+  padding: 9px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #737987,
+      #171a22 35%,
+      #080a0f 70%,
+      #606674
+    );
+
+  border: 2px solid #747987;
+
+  transform:
+    rotateY(-22deg)
+    rotateX(7deg)
+    rotateZ(2deg);
+
+  transform-style: preserve-3d;
+
+  box-shadow:
+    35px 45px 60px rgba(0,0,0,.65),
+    -10px 10px 35px rgba(70,90,255,.15),
+    inset 2px 2px 5px rgba(255,255,255,.3);
+
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% {
+    transform:
+      rotateY(-22deg)
+      rotateX(7deg)
+      rotateZ(2deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      rotateY(-18deg)
+      rotateX(9deg)
+      rotateZ(1deg)
+      translateY(-18px);
+  }
+}
+
+/* Screen */
+
+.screen {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  overflow: hidden;
+
+  border-radius: 40px;
+
+ 
+
+  border: 2px solid #050609;
+
+  box-shadow:
+    inset 0 0 40px rgba(255,255,255,.08);
+}
+
+/* Wallpaper shapes */
+
+.screen::before {
+  content: "";
+
+  position: absolute;
+
+  width: 250px;
+  height: 450px;
+
+  left: -100px;
+  top: 100px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    180deg,
+    rgba(0,220,255,.5),
+    rgba(90,70,255,.05)
+  );
+
+  transform: rotate(30deg);
+
+  filter: blur(10px);
+}
+
+.screen::after {
+  content: "";
+
+  position: absolute;
+
+  width: 200px;
+  height: 400px;
+
+  right: -80px;
+  bottom: -50px;
+
+  border-radius: 50%;
+
+  background: #ff4fd8;
+
+  opacity: .25;
+
+  filter: blur(50px);
+}
+
+/* Dynamic island */
+
+.island {
+  position: absolute;
+
+  top: 15px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 105px;
+  height: 30px;
+
+  border-radius: 20px;
+
+  background: #020307;
+
+  z-index: 10;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.1);
+}
+
+.camera {
+  position: absolute;
+
+  right: 10px;
+  top: 9px;
+
+  width: 11px;
+  height: 11px;
+
+  border-radius: 50%;
+
+  background: #172342;
+
+  box-shadow:
+    inset 1px 1px 3px #708cff;
+}
+
+/* Time */
+
+.time {
+  position: absolute;
+
+  top: 65px;
+  left: 25px;
+
+  font-size: 13px;
+
+  color: rgba(255,255,255,.8);
+
+  z-index: 5;
+}
+
+/* Phone headline */
+
+.phone-title {
+  position: absolute;
+
+  left: 25px;
+  right: 25px;
+  top: 125px;
+
+  z-index: 5;
+}
+
+.phone-title small {
+  color: #b4c0ff;
+
+  letter-spacing: 2px;
+
+  font-size: 11px;
+}
+
+.phone-title h2 {
+  font-size: 42px;
+
+  line-height: 1;
+
+  margin-top: 10px;
+
+  letter-spacing: -2px;
+}
+
+/* App icons */
+
+.apps {
+  position: absolute;
+
+  bottom: 80px;
+  left: 25px;
+  right: 25px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 15px;
+
+  z-index: 5;
+}
+
+.app {
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 14px;
+
+  background:
+    rgba(255,255,255,.13);
+
+  backdrop-filter: blur(10px);
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  font-size: 19px;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,.15);
+}
+
+/* Home indicator */
+
+.home {
+  position: absolute;
+
+  bottom: 17px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 100px;
+  height: 5px;
+
+  border-radius: 10px;
+
+  background: white;
+
+  opacity: .9;
+
+  z-index: 10;
+}
+
+/* Glass reflection */
+
+.reflection {
+  position: absolute;
+
+  top: -100px;
+  left: -100px;
+
+  width: 150px;
+  height: 700px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.16),
+      transparent
+    );
+
+  transform: rotate(20deg);
+
+  filter: blur(4px);
+
+  z-index: 15;
+
+  pointer-events: none;
+}
+
+/* Side buttons */
+
+.button {
+  position: absolute;
+
+  width: 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #17191e,
+      #858b96
+    );
+
+  z-index: -1;
+}
+
+.volume1 {
+  height: 50px;
+
+  left: -9px;
+  top: 130px;
+
+  border-radius: 5px 0 0 5px;
+}
+
+.volume2 {
+  height: 50px;
+
+  left: -9px;
+  top: 195px;
+
+  border-radius: 5px 0 0 5px;
+}
+
+.power {
+  height: 90px;
+
+  right: -9px;
+  top: 160px;
+
+  border-radius: 0 5px 5px 0;
+}
+
+@media (max-width: 900px) {
+
+  .hero {
+    min-height: 1000px;
+
+    flex-direction: column;
+
+    justify-content: center;
+  }
+
+  .hero-content {
+    width: 100%;
+
+    padding: 70px 30px 0;
+
+    text-align: center;
+  }
+
+  .description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .phone-area {
+    position: relative;
+
+    right: auto;
+
+    width: 100%;
+    height: 600px;
+
+    margin-top: 30px;
+  }
+
+  .phone {
+    transform:
+      rotateY(-15deg)
+      rotateX(5deg);
+  }
+
+  h1 {
+    letter-spacing: -3px;
+  }
+}
